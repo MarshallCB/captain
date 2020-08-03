@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/marshallcb/captain/raw/master/captain.gif" alt="Captain" width="100" />
+  <img src="https://github.com/marshallcb/captain/raw/master/captain.png" alt="Captain" width="100" />
 </div>
 
 <h1 align="center">Captain</h1>
