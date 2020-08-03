@@ -7,19 +7,13 @@
   <a href="https://npmjs.org/package/captain">
     <img src="https://badgen.now.sh/npm/v/captain" alt="version" />
   </a>
-  <a href="https://bundlephobia.com/result?p=captain">
-    <img src="https://img.badgesize.io/MarshallCB/captain/master/min.js?compression=brotli" alt="install size" />
-  </a>
 </div>
 
 <div align="center">Coordinate dynamic CLI commands to make development a breeze</div>
 
 ## Features
-- Automatic brightness calibration across hues
-- Returns CSS variables
-- Extensible with custom definitions
-- Built-in light & dark modes
-- Works on both server and client
+
+Coming soon
 
 # Usage
 
@@ -72,7 +66,7 @@ npm run save
 Coming soon
 
 ## Acknowledgements
-- NPM package name from [@shinuza](https://github.com/shinuza)
+- Thanks to [@shinuza](https://github.com/shinuza) for the package name
 - Section on JS Generators from [JavaScript Glossary on Demand](https://leanpub.com/jsglossary)
 
 ## License

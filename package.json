@@ -7,6 +7,9 @@
   },
   "description": "Coordinate dynamic CLI commands to make development a breeze",
   "main": "dist/index.js",
+  "bin": {
+    "captain": "./src/index.ts"
+  },
   "types": "types/index.d.ts",
   "license": "MIT",
   "author": {
@@ -22,7 +25,7 @@
     "node": ">= 10"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "",
     "prepublishOnly": "npm run build",
     "test": "uvu -r ts-node/register test"
   },
