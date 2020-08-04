@@ -1,16 +1,15 @@
 {
-  "version": "0.0.0",
+  "version": "0.0.1",
   "name": "captain",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/marshallcb/captain.git"
   },
-  "description": "Coordinate dynamic CLI commands to make development a breeze",
-  "main": "dist/index.js",
+  "description": "Coordinate CLI commands with dynamic prompts to make development a breeze",
+  "main": "./index.js",
   "bin": {
-    "captain": "./src/index.ts"
+    "captain": "./index.js"
   },
-  "types": "types/index.d.ts",
   "license": "MIT",
   "author": {
     "name": "Marshall Brandt",
@@ -18,27 +17,29 @@
     "url": "https://m4r.sh"
   },
   "files": [
-    "dist",
-    "types"
+    "dist"
   ],
   "engines": {
     "node": ">= 10"
   },
   "scripts": {
-    "build": "",
-    "prepublishOnly": "npm run build",
-    "test": "uvu -r ts-node/register test"
+    "build": ""
   },
   "keywords": [
     "cli",
     "generators",
     "dx",
+    "prompt",
+    "inquirer",
     "node"
   ],
   "devDependencies": {
     "rollup": "2.21.0",
-    "ts-node": "8.10.2",
-    "typescript": "3.9.6",
     "uvu": "0.0.19"
+  },
+  "dependencies": {
+    "inquirer": "^7.3.3",
+    "kleur": "^4.0.3",
+    "uid": "^1.0.0"
   }
 }

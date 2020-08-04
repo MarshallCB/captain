@@ -67,7 +67,7 @@ Coming soon
 
 ## Acknowledgements
 - Thanks to [@shinuza](https://github.com/shinuza) for the package name
-- Section on JS Generators from [JavaScript Glossary on Demand](https://leanpub.com/jsglossary)
+- Generator section in [JavaScript Glossary on Demand](https://leanpub.com/jsglossary)
 
 ## License
 
