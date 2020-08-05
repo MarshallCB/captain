@@ -8,7 +8,7 @@
   "description": "Coordinate CLI commands with dynamic prompts to make development a breeze",
   "main": "./index.js",
   "bin": {
-    "captain": "./index.js"
+    "captain": "./cli.js"
   },
   "license": "MIT",
   "author": {
@@ -38,6 +38,7 @@
     "uvu": "0.0.19"
   },
   "dependencies": {
+    "cfonts": "^2.8.6",
     "inquirer": "^7.3.3",
     "kleur": "^4.0.3",
     "uid": "^1.0.0"

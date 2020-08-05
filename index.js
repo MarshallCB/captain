@@ -1,12 +1,18 @@
-#!/usr/bin/env node
 var inquirer = require('inquirer')
 var uid = require('uid')
 var kleur = require('kleur')
+var cfonts = require('cfonts')
 const path = require('path');
 const fs = require('fs')
 
 let question = (o) => ({ name: uid(), ...o })
+// TODO: also export a function that works as an import and direct call captain(command, params, answers)
 
+// TODO: flag for where to look for files (local, like for npx captain "file" --> local file no matter where called from. m4r.sh case is weird)
+
+// TODO: allow for full import of a flow without the need to add a flow file to /to
+
+// TODO: try converting promise structure to async/await
 
 async function start(args){
   var flow;
@@ -41,5 +47,4 @@ async function start(args){
   })()
 }
 
-// Grab args
-start(process.argv.slice(2))
+module.exports = start
