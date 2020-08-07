@@ -27,7 +27,7 @@ npm install captain
 
 ## API
 
-### Usage
+### Workflows
 
 ```js
 function* rate(){
@@ -42,17 +42,18 @@ function* rate(){
 
 | Type | Props |
 | --- | --- |
-| `collect/text` | message, initial, validate |
-| `collect/secret` | message, validate |
-| `collect/number` | message, initial, min, max, float, validate |
-| `collect/date` | message, initial, locales, mask |
-| `collect/confirm` | message, initial |
-| `collect/toggle` | message, initial, active, inactive |
-| `collect/select` | message, initial, multi, hint, choices ({ title, description, value, disabled })  |
-| `font/[font_name]` | message, color |
-| `md` | message |
-| `progress` | message, async_fn |
-| `<URL>` | (props will be converted to GET variables in the request URL) |
+| `collect/text` | { message, initial, validate } |
+| `collect/secret` | { message, validate } |
+| `collect/number` | { message, initial, min, max, float, validate } |
+| `collect/date` | { message, initial, locales, mask } |
+| `collect/confirm` | { message, initial } |
+| `collect/toggle` | { message, initial, active, inactive } |
+| `collect/select` | { message, initial, multi, hint, choices ({ title, description, value, disabled }) }  |
+| `font/[font_name]` | { message, colors } |
+| `md` | _markdown_ |
+| `html` | _html_ |
+| `progress` | { message, promise }  |
+| `it/<id>` | (props will be converted to GET variables in the request URL) |
 
 
 ## Examples
