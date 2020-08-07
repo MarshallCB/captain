@@ -33,16 +33,11 @@ async function start(args){
   let val = await flow.next();
 
   (async function interact(){
-    if(!val.done){
+    while(!val.done){
       let q = question(val.value)
-      inquirer.prompt([ q ])
-        .then(async (answers) => {
-          val = await flow.next(answers[q.name])
-          interact()
-        })
-        .catch((e) => {
-          console.error(kleur.red(e));
-        })
+      let answer = await inquirer.prompt([ q ])
+      // TODO: display loading animation here
+      val = await flow.next(answer[q.name])
     }
   })()
 }

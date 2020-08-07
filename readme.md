@@ -27,7 +27,33 @@ npm install captain
 
 ## API
 
-Coming soon
+### Usage
+
+```js
+function* rate(){
+  let answer = yield ["collect/number", {
+    message: "How would you rate this, from 1 to 10?",
+    min: 1,
+    max: 10,
+    initial: 5
+  }]
+}
+```
+
+| Type | Props |
+| --- | --- |
+| `collect/text` | message, initial, validate |
+| `collect/secret` | message, validate |
+| `collect/number` | message, initial, min, max, float, validate |
+| `collect/date` | message, initial, locales, mask |
+| `collect/confirm` | message, initial |
+| `collect/toggle` | message, initial, active, inactive |
+| `collect/select` | message, initial, multi, hint, choices ({ title, description, value, disabled })  |
+| `font/[font_name]` | message, color |
+| `md` | message |
+| `progress` | message, async_fn |
+| `<URL>` | (props will be converted to GET variables in the request URL) |
+
 
 ## Examples
 
