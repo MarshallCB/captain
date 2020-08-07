@@ -27,18 +27,33 @@ npm install captain
 
 ## API
 
-### Workflows
+### Example
 
+1. Write workflow
+
+#### `rate.js`:
 ```js
-function* rate(){
-  let answer = yield ["collect/number", {
+export default function* rate(){
+  let rating = yield ["collect/number", {
     message: "How would you rate this, from 1 to 10?",
     min: 1,
     max: 10,
     initial: 5
   }]
+  let reason = yield ["collect/text", {
+    message: `Why did you rate this a ${rating}?`
+  }]
+  return { rating, reason };
 }
 ```
+
+2. Call workflow using `captain`
+
+```zsh
+  captain ./rate.js
+```
+
+### Possible Prompts: `yield [type, props]`
 
 | Type | Props |
 | --- | --- |
@@ -51,9 +66,7 @@ function* rate(){
 | `collect/select` | { message, initial, multi, hint, choices ({ title, description, value, disabled }) }  |
 | `font/[font_name]` | { message, colors } |
 | `md` | _markdown_ |
-| `html` | _html_ |
 | `progress` | { message, promise }  |
-| `it/<id>` | (props will be converted to GET variables in the request URL) |
 
 
 ## Examples
