@@ -71,7 +71,7 @@ async function argToFlow(arg){
   }
 }
 
-async function captain(arg, ...params){
+module.exports = async function captain(arg, ...params){
   try {
     var flow = await argToFlow(arg)
     let val = await flow.next();
@@ -87,5 +87,3 @@ async function captain(arg, ...params){
   }
   
 }
-
-module.exports = captain

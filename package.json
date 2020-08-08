@@ -9,6 +9,7 @@
   "bin": {
     "captain": "./cli.js"
   },
+  "main": "index.js",
   "license": "MIT",
   "author": {
     "name": "Marshall Brandt",
