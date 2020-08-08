@@ -6,7 +6,6 @@
     "url": "git+https://github.com/marshallcb/captain.git"
   },
   "description": "Coordinate CLI commands with dynamic prompts to make development a breeze",
-  "main": "./index.js",
   "bin": {
     "captain": "./cli.js"
   },
