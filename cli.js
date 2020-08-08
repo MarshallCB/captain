@@ -19,4 +19,4 @@ CFonts.say("CAPTAIN", {
 // })
 
 // Grab args
-captain(process.argv.slice(2))
+captain(...process.argv.slice(2))

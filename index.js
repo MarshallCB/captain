@@ -47,7 +47,7 @@ async function argToFlow(arg){
     })
   } else {
     // We can assume first argument is which command they'd like to do
-    where = arg.splice(0,1)
+    where = arg
   }
   try{
     return require(path.join(process.cwd(), `${where}.js`))()
