@@ -1,45 +1,91 @@
-var inquirer = require('inquirer')
+// var prompts = require('prompts')
 var uid = require('uid')
-var kleur = require('kleur')
-var cfonts = require('cfonts')
-const path = require('path');
+// var cfonts = require('cfonts')
+// const { log } = require('essential-md')
+const path = require('path')
 const fs = require('fs')
+const inquirer = require('inquirer')
 
-let question = (o) => ({ name: uid(), ...o })
-// TODO: also export a function that works as an import and direct call captain(command, params, answers)
-
-// TODO: flag for where to look for files (local, like for npx captain "file" --> local file no matter where called from. m4r.sh case is weird)
-
-// TODO: allow for full import of a flow without the need to add a flow file to /to
-
-// TODO: try converting promise structure to async/await
-
-async function start(args){
-  var flow;
-  if(!args.length){
-    // No argument supplied. Ask which command they'd like to do
-    let q = question({
-      type: "list",
-      message: "Choose a command",
-      choices: fs.readdirSync(path.join(process.cwd(),`/to`)).map(f => path.parse(f).name)
-    })
-    let answers = await inquirer.prompt([ q ])
-    flow = require(path.join(process.cwd(), `/to/${answers[q.name]}.js`))()
-  } else {
-    // We can assume first argument is which command they'd like to do
-    let which = args.splice(0,1)
-    flow = require(path.join(process.cwd(),`/to/${which}.js`))(...args)
+let promptify = (type, props) => {
+  let obj = { name: uid() }
+  if(true){
+    obj = { ...obj, type, ...props }
   }
-  let val = await flow.next();
-
-  (async function interact(){
-    while(!val.done){
-      let q = question(val.value)
-      let answer = await inquirer.prompt([ q ])
-      // TODO: display loading animation here
-      val = await flow.next(answer[q.name])
-    }
-  })()
+  return obj
 }
 
-module.exports = start
+let inquiry = async function(prompt){
+  return await inquirer.prompt([ prompt ])
+}
+
+let collect = async (type, props) => {
+  let prompt = promptify(type, props)
+  // let answer = await prompts(prompt)
+  let answer = await inquiry(prompt)
+  return answer[prompt.name]
+}
+
+let interface = async (type, props) => {
+  if(type.includes("collect/")){
+    return await collect(type.substring("collect/".length), props)
+  } else{
+    console.log("NOT VALID")
+  }
+}
+
+async function argToFlow(arg){
+  var flow, where;
+  // If generator function is passed, use that
+  if(typeof arg === "function"){
+    return arg();
+  }
+  // Else, treat arg as a filepath string
+  if(!arg.length){
+    // No argument supplied. Ask which command they'd like to do
+    where = await interface("collect/text", {
+      message: "Type a filepath"
+    })
+  } else {
+    // We can assume first argument is which command they'd like to do
+    where = arg.splice(0,1)
+  }
+  try{
+    return require(path.join(process.cwd(), `${where}.js`))()
+  } catch(e){
+    if(e.code === "MODULE_NOT_FOUND"){
+      let i = e.message.indexOf('Cannot find module')
+      let segments = e.message.substr(i).split('\'')
+      console.log(`Module require error: ${segments[1]}`)
+      if(e.requireStack.length > 2){
+        // Path dependency is uninstalled
+        console.log(`The flow "${where}.js" requires "${segments[1]}", which could not be found.`)
+        console.log(`Try: npm i ${segments[1]}`)
+      } else {
+        // Path provided is invalid
+        console.log(`The flow "${where}.js" does not exist`)
+      }
+    } else {
+      console.log(e)
+    }
+    return;
+  }
+}
+
+async function captain(arg, ...params){
+  try {
+    var flow = await argToFlow(arg)
+    let val = await flow.next();
+    while(!val.done){
+      let ans = await interface(...val.value)
+      // TODO: display loading animation here
+      val = await flow.next(ans)
+    }
+    return val.value;
+  } catch(e){
+    console.log("Error")
+    console.log(e)
+  }
+  
+}
+
+module.exports = captain
