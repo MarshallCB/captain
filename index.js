@@ -33,7 +33,7 @@ let interface = async (type, props) => {
   }
 }
 
-async function argToFlow(arg){
+async function argToFlow(arg, params){
   var flow, where;
   // If generator function is passed, use that
   if(typeof arg === "function"){
@@ -50,7 +50,7 @@ async function argToFlow(arg){
     where = arg
   }
   try{
-    return require(path.join(process.cwd(), `${where}.js`))()
+    return require(path.join(process.cwd(), `${where}.js`))(...params)
   } catch(e){
     if(e.code === "MODULE_NOT_FOUND"){
       let i = e.message.indexOf('Cannot find module')
@@ -73,7 +73,7 @@ async function argToFlow(arg){
 
 module.exports = async function captain(arg, ...params){
   try {
-    var flow = await argToFlow(arg)
+    var flow = await argToFlow(arg, params)
     let val = await flow.next();
     while(!val.done){
       let ans = await interface(...val.value)
