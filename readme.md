@@ -2,74 +2,124 @@
   <img src="https://github.com/marshallcb/captain/raw/master/captain.png" alt="Captain" width="100" />
 </div>
 
-<h1 align="center">Captain</h1>
+<h1 align="center">captain</h1>
 <div align="center">
   <a href="https://npmjs.org/package/captain">
     <img src="https://badgen.now.sh/npm/v/captain" alt="version" />
   </a>
 </div>
 
-<div align="center">Coordinate dynamic CLI commands to make development a breeze</div>
+<div align="center">Coordinate custom CLI commands for ultimate dev productivity</div>
+<h3 align="center">:construction: Work in progress :construction:</h3>
+
+<div align="center">
+  <a href="#Overview"><b>Overview</b></a> | 
+  <a href="#Setup"><b>Setup</b></a> | 
+  <a href="#API"><b>API</b></a> | 
+  <a href="#Examples"><b>Examples</b></a> | 
+  <a href="#About"><b>About</b></a>
+</div>
+
+---
+
+# Overview
 
 ## Features
 
-Coming soon
+- Curate your own menu of command line workflows
+- Automate common tasks (project scaffolding, bulk ops, git flows)
+- Sync workflows across computers w/ GitHub
+- Community workflows [Template]() [Our Favorites]()
+
+## How it works
+
+- Write `[command-title].js` in the "commands" folder. Ex: `hello-world.js`
+> This file must `export default` a generator function based on the [API](#API)
+  ```js
+    import captain from 'captain';
+
+    export default function*(){
+      yield "Hello World!";
+      let name = yield captain.text("What's your name?");
+      yield `Hello ${name}`;
+    }
+  ```
+- Call `[captain-alias] [command-title]` to run that generator function from anywhere, even other commands!
 
 # Usage
 
-## Installation
-
-Guided tutorial on path.cafe (coming soon)
+### 1. Clone template
 
 ```sh
-npm install captain
+degit MarshallCB/captain-example
 ```
 
-## API
+### 2. Rename "bin" to your liking
 
-### Example
+```sh
+m4rsh --help # Displays help and list of options
+sh4z compress  # Executes "compress" command
+```
 
-1. Write workflow
+### 3. Write your first command
 
-#### `rate.js`:
+```sh
+# Installs captain globally
+npm install -g captain
+```
+
+### 3. Write your first command
+
 ```js
-export default function* rate(){
-  let rating = yield ["collect/number", {
-    message: "How would you rate this, from 1 to 10?",
-    min: 1,
-    max: 10,
-    initial: 5
-  }]
-  let reason = yield ["collect/text", {
-    message: `Why did you rate this a ${rating}?`
-  }]
-  return { rating, reason };
+// hello-world.js
+
+import captain from 'captain';
+import otherFlow from './other';
+
+export default function*(){
+  yield "Hello World!";
+  let result = yield captain.shell(`git init`);
+  let ans = yield* otherFlow();
+  let name = yield captain.text("What's your name?");
+  yield `Hello ${name}`;
 }
+
+// other.js
+
+import captain from 'captain';
+
+export default function*(){
+  let answer = yield captain.number(1,10)
+  return answer;
+}
+
+// Hello world!
+// [] Running `git init`
+// > Git repository created in /cwd
+// Pick a number between 1 and 10:
+// What's your name?
+// Hello Marshall
 ```
 
-2. Call workflow using `captain`
+# API
 
-```zsh
-  captain ./rate.js
-```
+### Possible Prompts: `yield captain[type](message, options, validation)`
 
-### Possible Prompts: `yield [type, props]`
-
-| Type | Props |
+| Type | Options |
 | --- | --- |
-| `collect/text` | { message, initial, validate } |
-| `collect/secret` | { message, validate } |
-| `collect/number` | { message, initial, min, max, float, validate } |
-| `collect/date` | { message, initial, locales, mask } |
-| `collect/confirm` | { message, initial } |
-| `collect/toggle` | { message, initial, active, inactive } |
-| `collect/select` | { message, initial, multi, hint, choices ({ title, description, value, disabled }) }  |
-| `font/[font_name]` | { message, colors } |
-| `md` | _markdown_ |
-| `progress` | { message, promise }  |
+| `captain.text` | { initial } |
+| `captain.secret` | N/A |
+| `captain.number` | { initial, min, max, float } |
+| `captain.date` | { initial, locales, mask } |
+| `captain.confirm` | { initial } |
+| `captain.toggle` | { initial, active, inactive } |
+| `captain.select` | { initial, multi, hint, choices: { title, description, value, disabled } }  |
+| `captain.font` | { colors, size } |
+| `captain.shell` | { dependencies } |
+| `captain.progress` | { promise }  |
 
 
-## Examples
+# Examples
 
 Coming soon
 
@@ -90,16 +140,9 @@ Coming soon
 
 - - -
 
-# Development
+# About
 
 ### Contributing Guidelines
-
-### Commands
-
-Guided process to commit changes and/or submit a pull request
-```sh
-npm run save
-```
 
 ### Roadmap
 

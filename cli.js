@@ -1,12 +1,6 @@
 #!/usr/bin/env node
 var captain = require('./index')
-var CFonts = require('cfonts')
 console.clear()
-CFonts.say("CAPTAIN", {
-  font: 'chrome',
-  align: 'left',
-  colors: ['#2BD', '#28C', '#26C']
-})
 
 // var fg = require('fast-glob')
 

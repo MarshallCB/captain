@@ -33,7 +33,7 @@ let interface = async (type, props) => {
   }
 }
 
-async function argToFlow(arg, params){
+async function argToFlow(arg, params = null){
   var flow, where;
   // If generator function is passed, use that
   if(typeof arg === "function"){
@@ -50,7 +50,9 @@ async function argToFlow(arg, params){
     where = arg
   }
   try{
-    return require(path.join(process.cwd(), `${where}.js`))(...params)
+    console.log("WHERE")
+    console.log(where);
+    return require(`${where}`)(...params)
   } catch(e){
     if(e.code === "MODULE_NOT_FOUND"){
       let i = e.message.indexOf('Cannot find module')
@@ -58,11 +60,11 @@ async function argToFlow(arg, params){
       console.log(`Module require error: ${segments[1]}`)
       if(e.requireStack.length > 2){
         // Path dependency is uninstalled
-        console.log(`The flow "${where}.js" requires "${segments[1]}", which could not be found.`)
+        console.log(`The flow "${where}" requires "${segments[1]}", which could not be found.`)
         console.log(`Try: npm i ${segments[1]}`)
       } else {
         // Path provided is invalid
-        console.log(`The flow "${where}.js" does not exist`)
+        console.log(`The flow "${where}" does not exist`)
       }
     } else {
       console.log(e)
