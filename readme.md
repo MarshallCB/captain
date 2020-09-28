@@ -26,17 +26,21 @@
 
 ## Features
 
-:card_file_box: Curate your own menu of command line workflows
-:robot: Automate common tasks (project scaffolding, bulk ops, git flows)
-:zap: Sync workflows across computers w/ GitHub
-:globe_with_meridians: [Community workflows]()
+:card_file_box:  Curate your own menu of command line workflows
+
+:robot:  Automate common tasks (project scaffolding, bulk ops, git flows)
+
+:zap:  Sync workflows across computers w/ GitHub
+
+:globe_with_meridians:  [Community workflows]()
 
 ## Use Cases
 - GitHub workflows | [Examples]()
 - Project scaffolding | [Examples]()
-- Edit images | [Examples]()
+- Editing images | [Examples]()
 - Linux installs | [Examples]()
 - Guided tutorials | [Examples]()
+- [See all]()
 
 # Setup
 
@@ -45,9 +49,11 @@
 degit MarshallCB/captain-example
 ```
 
-2. **Write `[command-title].js` in the "commands" folder. Ex: `hello-world.js`**
+2. **Write `[command-title].js` in the "commands" folder. Ex: `commands/hello-world.js`**
 > This file must `export default` a generator function based on the [API](#API)
   ```js
+    // commands/hello-world.js
+
     import captain from 'captain';
 
     export default function*(){
@@ -58,18 +64,22 @@ degit MarshallCB/captain-example
   ```
 
 3. **Name your captain to create a global CLI from this folder**
+
 `package.json`
 ```json
   {
+    ...
     "bin": {
-      "m4rsh": "./cli.js" // Name this whatever you want!
-    },
+      "m4rsh": "./cli.js"
+    }
+    ...
   }
 ```
 
-4. Run `npm link` to install dependencies and register the CLI with your computer
+4. **Run `npm link` to install dependencies and register the CLI with your computer**
 
-5. Call `[captain-name] [command-title]`
+5. **Call `[captain-name] [command-title]`**
+
 Based on previous steps:
 ```sh
   m4rsh hello-world
@@ -81,7 +91,9 @@ Based on previous steps:
 
 # API
 
-### Possible Prompts: `yield captain[type](message, options, validation)`
+### Possible Prompts:
+
+General format: `yield captain[type](message, options, validation)`
 
 | Type | Options |
 | --- | --- |
