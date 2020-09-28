@@ -9,7 +9,7 @@
   </a>
 </div>
 
-<div align="center">Coordinate custom CLI commands for ultimate dev productivity</div>
+<div align="center">Coordinate custom commands for ultimate developer productivity</div>
 <h3 align="center">:construction: Work in progress :construction:</h3>
 
 <div align="center">
@@ -26,14 +26,26 @@
 
 ## Features
 
-- Curate your own menu of command line workflows
-- Automate common tasks (project scaffolding, bulk ops, git flows)
-- Sync workflows across computers w/ GitHub
-- Community workflows [Template]() [Our Favorites]()
+:card_file_box: Curate your own menu of command line workflows
+:robot: Automate common tasks (project scaffolding, bulk ops, git flows)
+:zap: Sync workflows across computers w/ GitHub
+:globe_with_meridians: [Community workflows]()
 
-## How it works
+## Use Cases
+- GitHub workflows | [Examples]()
+- Project scaffolding | [Examples]()
+- Edit images | [Examples]()
+- Linux installs | [Examples]()
+- Guided tutorials | [Examples]()
 
-- Write `[command-title].js` in the "commands" folder. Ex: `hello-world.js`
+# Setup
+
+1. **Clone [this template]() to a directory you plan to keep**
+```sh
+degit MarshallCB/captain-example
+```
+
+2. **Write `[command-title].js` in the "commands" folder. Ex: `hello-world.js`**
 > This file must `export default` a generator function based on the [API](#API)
   ```js
     import captain from 'captain';
@@ -44,61 +56,27 @@
       yield `Hello ${name}`;
     }
   ```
-- Call `[captain-alias] [command-title]` to run that generator function from anywhere, even other commands!
 
-# Usage
-
-### 1. Clone template
-
-```sh
-degit MarshallCB/captain-example
+3. **Name your captain to create a global CLI from this folder**
+`package.json`
+```json
+  {
+    "bin": {
+      "m4rsh": "./cli.js" // Name this whatever you want!
+    },
+  }
 ```
 
-### 2. Rename "bin" to your liking
+4. Run `npm link` to install dependencies and register the CLI with your computer
 
+5. Call `[captain-name] [command-title]`
+Based on previous steps:
 ```sh
-m4rsh --help # Displays help and list of options
-sh4z compress  # Executes "compress" command
-```
-
-### 3. Write your first command
-
-```sh
-# Installs captain globally
-npm install -g captain
-```
-
-### 3. Write your first command
-
-```js
-// hello-world.js
-
-import captain from 'captain';
-import otherFlow from './other';
-
-export default function*(){
-  yield "Hello World!";
-  let result = yield captain.shell(`git init`);
-  let ans = yield* otherFlow();
-  let name = yield captain.text("What's your name?");
-  yield `Hello ${name}`;
-}
-
-// other.js
-
-import captain from 'captain';
-
-export default function*(){
-  let answer = yield captain.number(1,10)
-  return answer;
-}
-
-// Hello world!
-// [] Running `git init`
-// > Git repository created in /cwd
-// Pick a number between 1 and 10:
-// What's your name?
-// Hello Marshall
+  m4rsh hello-world
+  > "Hello World!"
+  > "What's your name?"
+  > Marshall
+  > "Hello Marshall"
 ```
 
 # API
@@ -123,10 +101,14 @@ export default function*(){
 
 Coming soon
 
-## Details
+- - -
+
+# About
+
+### Techincal Details & Decisions
 
 <details>
-  <summary><strong>About Generator Functions</strong></summary>
+  <summary><strong>Generator Functions</strong></summary>
   <div>
     Coming soon
   </div>
@@ -137,10 +119,12 @@ Coming soon
     Coming soon
   </div>
 </details>
-
-- - -
-
-# About
+<details>
+  <summary><strong>Security</strong></summary>
+  <div>
+    Coming soon
+  </div>
+</details>
 
 ### Contributing Guidelines
 
