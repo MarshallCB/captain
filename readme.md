@@ -9,7 +9,7 @@
   </a>
 </div>
 
-<div align="center">Coordinate custom commands for ultimate developer productivity</div>
+<div align="center">Custom CLI commands for ultimate developer productivity</div>
 <h3 align="center">:construction: Work in progress :construction:</h3>
 
 <div align="center">
@@ -65,14 +65,12 @@ degit MarshallCB/captain-example
 
 3. **Name your captain to create a global CLI from this folder**
 
-`package.json`
+In your `package.json`
 ```json
   {
-    ...
     "bin": {
       "m4rsh": "./cli.js"
     }
-    ...
   }
 ```
 
